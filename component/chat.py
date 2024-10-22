@@ -3,11 +3,8 @@ from langchain_ollama.llms import OllamaLLM
 import streamlit as st
 import os 
 
-class Chat:
+class Bot:
     
-    def __init__(self):
-        self.history = []
-
 
     def chat(self):
     
@@ -23,10 +20,14 @@ class Chat:
         question = st.chat_input("Enter your question here")
         if question: 
             response = self.chain.invoke({"question": question})
-            st.write(response)
+            if isinstance(response, str):
+                response_text = response  # If it's a string, assign it directly
+            else:
+                response_text = response.get('text', 'No response text available')
+            
 
-# To run the app
-if __name__ == "__main__":
-    chat = Chat()
-    
 
+            st.session_state.messages.append({"role":"user", "content": question})
+            st.session_state.messages.append({"role": "assistant", "content": response_text})
+
+            st.write(response_text)

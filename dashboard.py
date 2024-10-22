@@ -1,5 +1,5 @@
 import streamlit as st
-from component.chat import Main
+from component.chat import Bot
 
 
 def initialize_session_state():
@@ -9,7 +9,7 @@ def initialize_session_state():
         st.session_state.messages = []
 
     if "chat" not in st.session_state:
-        st.session_state.chat = Main
+        st.session_state.chat = Bot()
 
 def display_chat_messages():
     """Display chat messages from History"""
@@ -27,6 +27,7 @@ def layout():
 
 
     display_chat_messages()
+    st.session_state.chat.chat()
 
 
 if __name__ == "__main__":
