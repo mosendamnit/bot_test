@@ -12,7 +12,7 @@ class Bot:
 
         Answer: I will do my best."""
         self.prompt = ChatPromptTemplate.from_template(self.template)
-        self.model = OllamaLLM(model="llama3.1", temperature=0.2, max_tokens = 100)
+        self.model = OllamaLLM(model="llama2", temperature=0.2, max_tokens = 50)
         self.chain = self.prompt | self.model
 
     
