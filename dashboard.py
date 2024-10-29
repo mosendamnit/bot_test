@@ -1,6 +1,8 @@
 import streamlit as st
 from component.chat import Bot
 from populate_database import main as populate_database_main
+from feedback import display_feedback_form
+from login import display_login
 
 
 DATA_PATH = "data"
@@ -43,19 +45,12 @@ def layout():
     st.title ("ChatBot - App 🤖")
     st.write("##### An Intelligent, Document-Based Q&A Assistant for Internal Teams")
     
-    # Upload data file , you wish to query. 
+    # display login on side bar 
+    display_login()   
+    
+    # Login button placeholder
     with st.sidebar:
-        # login Section
-        st.title("🔒 Login")
-        st.write("Please enter your email and password to access the ChatBot")
-
-        # input feilds for email and password
-        email = st.text_input("Enter your email")
-        password = st.text_input("Enter your password" , type = "password")
         
-        # Login button placeholder
-        if st.button("Login"):
-            st.write("Login button clicked (backend logic will add tomorrow)")
         st.title("🗂️ Document Upload")
         uploaded_file = st.file_uploader("Upload data file")
 
@@ -64,6 +59,12 @@ def layout():
 
     display_chat_messages()
     st.session_state.chat.chat()
+    
+
+    if st.session_state.messages:
+        last_query = st.session_state.messages[-2]["content"]
+        last_response = st.session_state.messages[-1]["content"]
+        display_feedback_form(last_query , last_response)
 
 
 if __name__ == "__main__":
