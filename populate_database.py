@@ -8,6 +8,9 @@ from embedding_function import embedding_function
 from langchain_community.vectorstores import Chroma
 from document_utils import split_documents , calculate_chunks_ids
 from word_format import load_word_documents
+from csv_format import load_csv_documents
+
+
 
 DATA_PATH = "data"
 CHROMA_PATH = "chroma"
@@ -35,6 +38,9 @@ def load_documents():
 
     # Load Word(docx) data file
     documents.extend(load_word_documents())
+
+    # Load CSV format data file
+    documents.extend(load_csv_documents())
 
     return documents
 
