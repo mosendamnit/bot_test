@@ -5,6 +5,7 @@ from document_utils import split_documents
 
 DATA_PATH = "data"
 
+# function to load data file in docx format
 def load_word_documents():
     documents = []
     section_counter = 1
@@ -26,6 +27,7 @@ def load_word_documents():
     return documents
 
 if __name__ == "__main__":
+    
     # Load Word documents
     documents = load_word_documents()
     print(f"Total Word Documents Loaded: {len(documents)}")

@@ -44,6 +44,7 @@ def load_documents():
 
     return documents
 
+# function to split the data file in chunks (small part)
 def split_documents(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=800,
@@ -52,6 +53,7 @@ def split_documents(documents: list[Document]):
     )
     return text_splitter.split_documents(documents)
 
+# function to add those chunks in chroma database 
 def add_to_chroma(chunks: list[Document]):
     db = Chroma(
         persist_directory=CHROMA_PATH,

@@ -7,6 +7,7 @@ from login import display_login
 
 DATA_PATH = "data"
 
+# function to initialize the session in Chat
 def initialize_session_state():
     """Initialize session state variable"""
 
@@ -19,7 +20,7 @@ def initialize_session_state():
     if "data_uploaded" not in st.session_state:
         st.session_state.data_uploaded = False
 
-
+# function for uploading data file in data folder 
 def process_uploaded_file(uploaded_file):
     if uploaded_file is not None:
         
@@ -30,7 +31,7 @@ def process_uploaded_file(uploaded_file):
 
         st.session_state.data_uploaded = True
 
-
+# function to user and bot messages in chat-bot
 def display_chat_messages():
     """Display chat messages from History"""
 

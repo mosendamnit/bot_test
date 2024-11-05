@@ -6,7 +6,8 @@ from embedding_function import embedding_function
 
 CHROMA_PATH = "chroma"
 PROMPT_TEMPLATE = """
-You are a specialized Zpark project chatbot, designed to assist users by providing clear, concise, and context-driven answers based solely on the provided information. Your goal is to help users by addressing their questions directly and accurately, ensuring responses are easy to understand.
+You are a specialized Zpark project chatbot, designed to assist users by providing clear, concise, and context-driven answers based solely on the provided information.
+Your goal is to help users by addressing their questions directly and accurately, ensuring responses are easy to understand.
 
 Guidelines:
 - Summarize relevant context briefly before answering, if applicable.
@@ -23,7 +24,7 @@ Answer the following question based on the above context:
 {question}
 """
 
-
+# function takes user query and send it to query function
 def main():
     # Create CLI.
     parser = argparse.ArgumentParser()
@@ -32,8 +33,7 @@ def main():
     query_text = args.query_text
     query_rag(query_text)
 
-
-
+# 
 def query_rag(query_text: str):
     
     #Prepare the DB
@@ -47,7 +47,7 @@ def query_rag(query_text: str):
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context= context_text , question = query_text)
 
-    model = OllamaLLM(model="llama3.1" , temperature=0.6 , max_token= 150)
+    model = OllamaLLM(model="llama3.1" , temperature=0.5 , max_token= 150)
     response_text = model.invoke(prompt)
 
     sources = [doc.metadata.get("id", None) for doc, _score in results]
