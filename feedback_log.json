@@ -5,5 +5,15 @@
         "response": "Based on the provided context, Artificial Intelligence (AI) is defined as:\n\n\"...the branch of computer science, which makes the computers to mimic the human behavior to assist humans for better performance in the field of science and technology.\"",
         "rating": "Yes",
         "comments": "yes it explain it well"
+    },
+    {
+        "timestamp": "2024-11-04T11:25:58.772530",
+        "query": "does my electic cable fit the zpark charger ?",
+        "response": "To answer your question, I need a bit more information. Unfortunately, it's not explicitly mentioned in the provided context what type of electric cables are compatible with the Zpark charger.\n\nHowever, if you're looking for guidance on this specific topic, I recommend checking the Zpark Portal or consulting the user manual for your specific charging station. They should have detailed information on cable compatibility and requirements.",
+        "rating": [
+            ":material/thumb_down:",
+            ":material/thumb_up:"
+        ],
+        "comments": "Yes, the power outlet in a Zpark Duo complies with EU standard type 2."
     }
 ]
