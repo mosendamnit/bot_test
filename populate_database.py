@@ -8,7 +8,10 @@ from embedding_function import embedding_function
 from langchain_community.vectorstores import Chroma
 from document_utils import split_documents , calculate_chunks_ids
 from word_format import load_word_documents
-from csv_format import load_csv_documents
+from excel_format import load_excel_documents
+#from langchain.vectorstores import Chroma
+
+
 
 
 
@@ -40,7 +43,10 @@ def load_documents():
     documents.extend(load_word_documents())
 
     # Load CSV format data file
-    documents.extend(load_csv_documents())
+    #documents.extend(load_csv_documents())
+
+    # load Excel format data file
+    documents.extend(load_excel_documents())
 
     return documents
 
