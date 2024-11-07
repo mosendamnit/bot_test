@@ -5,11 +5,13 @@ from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from embedding_function import embedding_function
-from langchain_community.vectorstores import Chroma
+#from langchain_community.vectorstores import Chroma
 from document_utils import split_documents , calculate_chunks_ids
 from word_format import load_word_documents
 from excel_format import load_excel_documents
 #from langchain.vectorstores import Chroma
+from langchain_chroma import Chroma
+
 
 
 
@@ -29,7 +31,14 @@ def main():
 
     # Create (or update) the data store
     documents = load_documents()
-    chunks = split_documents(documents)
+
+    # Split documents by type
+    pdf_chunks = split_documents([doc for doc in documents if doc.metadata['source'].endswith('.pdf')], 'pdf')
+    word_chunks = split_documents([doc for doc in documents if doc.metadata['source'].endswith('.docx')], 'word')
+    csv_chunks = split_documents([doc for doc in documents if doc.metadata['source'].endswith('.csv')], 'csv')
+    excel_chunks = split_documents([doc for doc in documents if doc.metadata['source'].endswith('.xlsx')], 'excel')
+    
+    chunks = pdf_chunks + word_chunks + csv_chunks + excel_chunks
     add_to_chroma(chunks)
 
 def load_documents():
@@ -51,13 +60,36 @@ def load_documents():
     return documents
 
 # function to split the data file in chunks (small part)
-def split_documents(documents: list[Document]):
+def split_documents(documents, datatype):
+    if datatype == 'pdf' or datatype == 'word':
+
+        chunk_size = 1200
+        chunk_overlap = 100
+
+    elif datatype == 'csv' or datatype == 'excel':
+
+        chunk_size = 800
+        chunk_overlap = 0
+
+    else:
+
+        chunk_size = 1000
+        chunk_overlap = 50
+
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=80,
+        chunk_size=chunk_size, 
+        chunk_overlap=chunk_overlap,
         length_function=len,
     )
     return text_splitter.split_documents(documents)
+
+# def split_documents(documents: list[Document]):
+#     text_splitter = RecursiveCharacterTextSplitter(
+#         chunk_size=1200,
+#         chunk_overlap=100,
+#         length_function=len,
+#     )
+#     return text_splitter.split_documents(documents)
 
 # function to add those chunks in chroma database 
 def add_to_chroma(chunks: list[Document]):

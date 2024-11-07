@@ -10,8 +10,11 @@ def load_excel_documents():
     sheet_counter = 1
 
     for filename in os.listdir(DATA_PATH):
-        if filename.endswith(".xlsx"):
-            file_path = os.path.join(DATA_PATH , filename)
+        # Only process files ending with .xlsx and skip hidden files
+        if not filename.endswith(".xlsx") or filename.startswith('.'):
+            print(f"Skipping non-Excel or hidden file: {filename}")
+            continue  # Skip the file if it’s not an Excel file
+        file_path = os.path.join(DATA_PATH , filename)
         try:
 
             # to read the sheets in the excel file
